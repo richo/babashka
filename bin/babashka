@@ -1,0 +1,16 @@
+#!/bin/bash
+
+function __babashka_find_self() {
+     find "$0"/../../lib -type f
+}
+
+function __babashka_load_self() {
+    for f in `__babashka_find_self`; do
+        source "$f"
+    done
+}
+__babashka_load_self
+
+__babashka_load_deps
+
+__babashka_main "$@"
