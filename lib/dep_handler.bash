@@ -1,8 +1,23 @@
 function process() {
-    if ! is_met; then
-        meet
-        is_met || fail
+    if ! process_is_met; then
+        process_meet
+        process_is_met || fail
     fi
+}
+
+function process_is_met() {
+    __babashka_log_printf "--> is met? "
+    is_met
+    st=$?
+    __babashka_log "$st"
+    return $st
+}
+
+function process_meet() {
+    __babashka_log_printf "--> meet "
+    meet
+    st=$?
+    __babashka_log "$st"
 }
 
 function requires() {
@@ -11,5 +26,6 @@ function requires() {
 
 # $1 - dep name to invoke
 function __babashka_invoke() {
+    __babashka_log "-> $1"
     eval "$1"
 }
