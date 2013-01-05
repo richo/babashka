@@ -19,6 +19,7 @@ zsh_installed() {
 mysql_environment() {
   requires "mysql_server"
   requires "mysql_client"
+  # Don't need process if this dep doesn't have meet or is_met
 }
 
 mysql_server() {
@@ -28,6 +29,7 @@ mysql_server() {
   function meet() {
     sudo aptitude install mysql-server
   }
+  process
 }
 
 mysql_client() {
@@ -37,6 +39,7 @@ mysql_client() {
   function meet() {
     sudo aptitude install mysql-client
   }
+  process
 }
 ```
 
