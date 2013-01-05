@@ -1,5 +1,31 @@
 #!/bin/bash
 
+__babashka_trace=no
+
+__babashka_usage() {
+    echo "usage: babashka [-x] <dep name>" >&2
+    exit 1
+}
+
+while getopts "x" opt; do
+    case $opt in
+        x)
+            __babashka_trace=yes
+            shift
+            break
+            ;;
+        \?)
+            __babashka_usage
+            break
+            ;;
+    esac
+done
+
+if [ $__babashka_trace = "yes" ]; then
+    set -x
+fi
+
+
 function __babashka_find_self() {
      find "$0"/../../lib -type f
 }
