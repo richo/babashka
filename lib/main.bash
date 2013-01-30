@@ -1,4 +1,7 @@
 function __babashka_main() {
-    # omg hax
-    __babashka_invoke "$1"
+    if [ $# -eq 1 ]; then
+        __babashka_invoke "$1"
+    else
+        __babashka_usage
+    fi
 }
