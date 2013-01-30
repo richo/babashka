@@ -68,4 +68,10 @@ babashka zsh_installed
 babashka mysql_environment
 ```
 
+## What people are saying about babashka
+
+"You're a bad person"
+
+~ [@larsyencken](https://twitter.com/larsyencken)
+
 [1]: https://babushka.me
