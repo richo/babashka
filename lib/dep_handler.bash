@@ -1,7 +1,7 @@
 function process() {
     if ! process_is_met; then
         process_meet
-        process_is_met || exit 1
+        process_is_met || __babashka_fail "dependency didn't converge"
     fi
 }
 
