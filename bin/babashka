@@ -27,7 +27,7 @@ fi
 
 
 function __babashka_find_self() {
-     find "$0"/../../lib -type f
+     find "$(dirname $0)"/../lib -type f
 }
 
 function __babashka_load_self() {
