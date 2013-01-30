@@ -1,7 +1,7 @@
 function process() {
     if ! process_is_met; then
         process_meet
-        process_is_met || fail
+        process_is_met || exit 1
     fi
 }
 
