@@ -27,7 +27,11 @@ fi
 
 
 function __babashka_find_self() {
-     find "$0"/../../lib -type f
+    basedir=$(dirname "$0")
+    if [ -h "$0" ]; then
+        basedir=$(dirname $(readlink -f "$0"))
+    fi
+    find "${basedir}/../lib" -type f
 }
 
 function __babashka_load_self() {

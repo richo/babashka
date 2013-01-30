@@ -1,5 +1,20 @@
 A [babushka](1) like clone, written in bash.
 
+## Installing
+
+Clone this repo to the location of your choice, and add `babashka/bin` to your path.
+
+```bash
+git clone https://github.com/richo/babashka
+echo "export PATH=$PWD/babashka/bin:\${PATH}" >>.bashrc
+```
+
+## Organising deps
+
+`babashka` looks for dependencies in the `deps/` folder within the current directory, so firstly make this folder. Then write dependencies in files ending in `.bash` within that folder, for example `deps/server.bash`.
+
+## Writing deps
+
 Write deps with a similar form to their babushka counterparts:
 
 ```bash
@@ -43,13 +58,14 @@ mysql_client() {
 }
 ```
 
+## Running deps
+
 Then invoke:
 
 ```bash
 
 babashka zsh_installed
 babashka mysql_environment
-
 ```
 
 [1]: https://babushka.me
