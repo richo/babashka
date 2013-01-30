@@ -1,7 +1,7 @@
 function process() {
     if ! process_is_met; then
         process_meet
-        process_is_met || fail
+        process_is_met || __babashka_fail "dependency didn't converge"
     fi
 }
 
@@ -14,7 +14,7 @@ function process_is_met() {
 }
 
 function process_meet() {
-    __babashka_log_raw "==> meet "
+    __babashka_log "==> meet "
     meet
     st=$?
     __babashka_log "$st"
