@@ -1,16 +1,18 @@
 #!/bin/bash
 
 __babashka_trace=no
+__babashka_output_stream=/dev/null
 
 __babashka_usage() {
-    echo "usage: babashka [-s] [-f] [-x] <dep name>" >&2
+    echo "usage: babashka [-v] [-s] [-f] [-x] <dep name>" >&2
     echo "  -s : use sudo if required"               >&2
     echo "  -f : force operations"                   >&2
     echo "  -x : trace mode (debug)"                 >&2
+    echo "  -v : verbose mode"                       >&2
     exit 1
 }
 
-while getopts "fxs" opt; do
+while getopts "vfxs" opt; do
     case $opt in
         x)
             __babashka_trace=yes
@@ -20,6 +22,9 @@ while getopts "fxs" opt; do
             ;;
         f)
             __babushka_force="yes"
+            ;;
+        v)
+            __babushka_output_stream="/dev/stdout"
             ;;
         \?)
             __babashka_usage

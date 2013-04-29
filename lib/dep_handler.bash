@@ -7,7 +7,7 @@ function process() {
 
 function process_is_met() {
     __babashka_log "==> is met? "
-    is_met
+    is_met > $__babashka_output_stream
     st=$?
     __babashka_log " $st"
     return $st
@@ -15,7 +15,7 @@ function process_is_met() {
 
 function process_meet() {
     __babashka_log "==> meet "
-    meet
+    meet > $__babashka_output_stream
     st=$?
     __babashka_log "$st"
 }
