@@ -26,8 +26,8 @@ function requires() {
 
 # $1 - dep name to invoke
 function __babashka_invoke() {
-    __babashka_current_indent=$(( $__babashka_current_indent + 1 ))
+    (( __babashka_current_indent = $__babashka_current_indent + 1 ))
     __babashka_log "-> $1"
     eval "$1"
-    __babashka_current_indent=$(( $__babashka_current_indent - 1 ))
+    (( __babashka_current_indent = $__babashka_current_indent - 1 ))
 }
