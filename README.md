@@ -12,19 +12,19 @@ echo "export PATH=$PWD/babashka/bin:\${PATH}" >>.bashrc
 or if you don't have git
 
 ```bash
-curl https://raw.github.com/richo/babashka/master/boostrap.sh | sh /dev/stdin
+curl https://raw.github.com/richo/babashka/master/bootstrap.sh | sh /dev/stdin
 ```
 
 Or if you've done this before and you want your deps too:
 
 ```bash
-curl https://raw.github.com/richo/babashka/master/boostrap.sh | sh /dev/stdin -u your_github_username
+curl https://raw.github.com/richo/babashka/master/bootstrap.sh | sh /dev/stdin -u your_github_username
 ```
 
 Or if for some reason you felt compelled to name your deps strangely:
 
 ```bash
-curl https://raw.github.com/richo/babashka/master/boostrap.sh | sh /dev/stdin -u your_github_username -r strangely_named_repo
+curl https://raw.github.com/richo/babashka/master/bootstrap.sh | sh /dev/stdin -u your_github_username -r strangely_named_repo
 ```
 
 ## Organising deps
