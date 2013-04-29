@@ -9,7 +9,7 @@ function __babashka_load_deps() {
 # $1 - path to search over
 # [$2] - pattern to match for deps
 function __babashka_find_deps_from_path() {
-    find "$1" -type f # -iname "*.${2:-babsh}"
+    find "$1" -type f -iname "*.${2:-sh}"
                       # TODO
 }
 
