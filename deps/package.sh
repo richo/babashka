@@ -1,5 +1,5 @@
 function install_package() {
-  _package_name=$1; shift
+  _package_name=$1
   _platform=`uname -s`
   # -a == apt
   # -b == brew
