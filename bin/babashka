@@ -10,25 +10,25 @@ __babashka_usage() {
     exit 1
 }
 
-while getopts "sx" opt; do
+while getopts "fxs" opt; do
     case $opt in
         x)
             __babashka_trace=yes
-            shift
             ;;
         s)
             __babashka_sudo="sudo"
-            shift
             ;;
         f)
             __babushka_force="yes"
-            shift
             ;;
         \?)
             __babashka_usage
             ;;
     esac
 done
+
+((shift_value = $OPTIND - 1))
+shift $shift_value
 
 if [ $__babashka_trace = "yes" ]; then
     set -x
