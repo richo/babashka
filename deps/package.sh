@@ -19,7 +19,8 @@ function install_package() {
        dpkg -l | grep ${apt_pkg:-$_package_name}
      }
      function meet() {
-       $__babashka_sudo apt-get install ${apt_pkg:-$_package_name}
+       [ -n "$__babushka_force" ] && apt_flags="${apt_flags} -f --force-yes"
+       $__babashka_sudo apt-get install $apt_flags ${apt_pkg:-$_package_name}
      }
      ;;
    Darwin)
