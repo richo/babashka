@@ -12,16 +12,13 @@ while getopts "sx" opt; do
         x)
             __babashka_trace=yes
             shift
-            break
             ;;
         s)
 	    __babashka_sudo="sudo"
             shift
-            break
             ;;
         \?)
             __babashka_usage
-            break
             ;;
     esac
 done
