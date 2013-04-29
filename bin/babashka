@@ -3,7 +3,7 @@
 __babashka_trace=no
 
 __babashka_usage() {
-    echo "usage: babashka [-s] [-x] <dep name>" >&2
+    echo "usage: babashka [-s] [-f] [-x] <dep name>" >&2
     exit 1
 }
 
@@ -15,6 +15,10 @@ while getopts "sx" opt; do
             ;;
         s)
 	    __babashka_sudo="sudo"
+            shift
+            ;;
+        f)
+            __babushka_force="yes"
             shift
             ;;
         \?)
