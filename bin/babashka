@@ -4,6 +4,9 @@ __babashka_trace=no
 
 __babashka_usage() {
     echo "usage: babashka [-s] [-f] [-x] <dep name>" >&2
+    echo "  -s : use sudo if required"               >&2
+    echo "  -f : force operations"                   >&2
+    echo "  -x : trace mode (debug)"                 >&2
     exit 1
 }
 
