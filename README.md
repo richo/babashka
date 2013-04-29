@@ -9,6 +9,24 @@ git clone https://github.com/richo/babashka
 echo "export PATH=$PWD/babashka/bin:\${PATH}" >>.bashrc
 ```
 
+or if you don't have git
+
+```bash
+curl https://raw.github.com/richo/babashka/master/boostrap.sh | sh /dev/stdin
+```
+
+Or if you've done this before and you want your deps too:
+
+```bash
+curl https://raw.github.com/richo/babashka/master/boostrap.sh | sh /dev/stdin -u your_github_username
+```
+
+Or if for some reason you felt compelled to name your deps strangely:
+
+```bash
+curl https://raw.github.com/richo/babashka/master/boostrap.sh | sh /dev/stdin -u your_github_username -r strangely_named_repo
+```
+
 ## Organising deps
 
 `babashka` looks for dependencies in the `deps/` folder within the current directory, so firstly make this folder. Then write dependencies in files ending in `.bash` within that folder, for example `deps/server.bash`.
