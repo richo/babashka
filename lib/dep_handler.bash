@@ -6,18 +6,18 @@ function process() {
 }
 
 function process_is_met() {
-    __babashka_log "==> is met? "
+    __babashka_log '`- is met?'
     is_met > $__babashka_output_stream
     st=$?
-    __babashka_log " $st"
+    __babashka_log "  $st"
     return $st
 }
 
 function process_meet() {
-    __babashka_log "==> meet "
+    __babashka_log "=> meet "
     meet > $__babashka_output_stream
     st=$?
-    __babashka_log "$st"
+    __babashka_log "=> $st"
 }
 
 function requires() {

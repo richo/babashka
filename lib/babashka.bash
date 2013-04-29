@@ -1,5 +1,6 @@
 __babashka_log() {
-    echo "$@"
+    printf "%*s"  "$__babashka_current_indent"
+    printf "%s\n" "$@"
 }
 
 __babashka_fail() {
