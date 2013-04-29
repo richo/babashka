@@ -21,7 +21,7 @@ function install_package() {
      function meet() {
        $__babashka_sudo apt-get install ${apt_pkg:-$_package_name}
      }
-     break;;
+     ;;
    Darwin)
      # TODO things other than brew
      function is_met() {
@@ -30,6 +30,6 @@ function install_package() {
      function meet() {
        brew install ${brew_pkg:-$_package_name}
      }
-     break;;
+     ;;
   esac
 }
