@@ -24,7 +24,7 @@ while getopts "vfxs" opt; do
             __babushka_force="yes"
             ;;
         v)
-            __babushka_output_stream="/dev/stdout"
+            __babashka_output_stream="/dev/stderr"
             ;;
         \?)
             __babashka_usage
