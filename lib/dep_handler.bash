@@ -24,6 +24,10 @@ function requires() {
     __babashka_invoke "$1"
 }
 
+function requires_nested() {
+    ( __babashka_invoke "$1" ) || exit 1
+}
+
 # $1 - dep name to invoke
 function __babashka_invoke() {
     (( __babashka_current_indent = $__babashka_current_indent + 1 ))
