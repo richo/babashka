@@ -17,7 +17,7 @@ while getopts "sx" opt; do
             shift
             ;;
         s)
-	    __babashka_sudo="sudo"
+            __babashka_sudo="sudo"
             shift
             ;;
         f)
