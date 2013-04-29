@@ -3,14 +3,19 @@
 __babashka_trace=no
 
 __babashka_usage() {
-    echo "usage: babashka [-x] <dep name>" >&2
+    echo "usage: babashka [-s] [-x] <dep name>" >&2
     exit 1
 }
 
-while getopts "x" opt; do
+while getopts "sx" opt; do
     case $opt in
         x)
             __babashka_trace=yes
+            shift
+            break
+            ;;
+        s)
+	    __babashka_sudo="sudo"
             shift
             break
             ;;
