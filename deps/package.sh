@@ -1,5 +1,5 @@
 function install_package() {
-  _package_name=$1
+  _package_name=$1; shift
   _platform=`uname -s`
   # -a == apt
   # -b == brew
@@ -11,6 +11,7 @@ function install_package() {
         brew_pkg=$OPTARG;;
     esac
   done
+  unset OPTIND
 
   case "`uname -s`" in
     Linux)

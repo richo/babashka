@@ -29,6 +29,7 @@ done
 
 ((shift_value = $OPTIND - 1))
 shift $shift_value
+unset OPTIND
 
 if [ $__babashka_trace = "yes" ]; then
     set -x
