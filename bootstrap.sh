@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e -x
+set -e
 
 repo_name="babashka-deps"
 while getopts "u:r:" opt; do
