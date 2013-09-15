@@ -40,22 +40,120 @@ if [ $__babashka_trace = "yes" ]; then
     set -x
 fi
 
-
-function __babashka_find_self() {
-    basedir=$(dirname "$0")
-    if [ -h "$0" ]; then
-        basedir=$(dirname $(readlink -f "$0"))
-    fi
-    find "${basedir}/../lib" -type f
-    find "${basedir}/../deps" -type f
+__babashka_log() {
+    printf "%*s"  "$__babashka_current_indent"
+    printf "%s\n" "$@"
 }
 
-function __babashka_load_self() {
-    for f in `__babashka_find_self`; do
-        source "$f"
+__babashka_fail() {
+    echo ERROR: "$@" 1>&2
+    exit 1
+}
+
+unmeetable() {
+    __babashka_fail "$@"
+}
+function process() {
+    if ! process_is_met; then
+        process_meet
+        process_is_met || __babashka_fail "dependency didn't converge"
+    fi
+}
+
+function process_is_met() {
+    __babashka_log '`- is met?'
+    is_met > $__babashka_output_stream
+    st=$?
+    __babashka_log "  $st"
+    return $st
+}
+
+function process_meet() {
+    __babashka_log "=> meet "
+    meet > $__babashka_output_stream
+    st=$?
+    __babashka_log "=> $st"
+}
+
+function requires() {
+    __babashka_invoke "$1"
+}
+
+function requires_nested() {
+    ( __babashka_invoke "$1" ) || exit 1
+}
+
+# $1 - dep name to invoke
+function __babashka_invoke() {
+    (( __babashka_current_indent = $__babashka_current_indent + 1 ))
+    __babashka_log "-> $1"
+    eval "$1"
+    (( __babashka_current_indent = $__babashka_current_indent - 1 ))
+}
+function __babashka_load_deps() {
+    for path in deps babashka_deps ~/.babashka/deps; do
+        if [ -d $path ]; then
+            __babashka_load_deps_from_path "$path"
+        fi
     done
 }
-__babashka_load_self
+
+# $1 - path to search over
+# [$2] - pattern to match for deps
+function __babashka_find_deps_from_path() {
+    find "$1" -type f -iname "*.${2:-sh}"
+                      # TODO
+}
+
+# $1 - path to load deps from
+function __babashka_load_deps_from_path() {
+    for path in `__babashka_find_deps_from_path "$1"`; do
+        source $path
+    done
+}
+file_exists() {
+    if [ "${1:0:7}" = "hdfs://" ]; then
+        hadoop fs -test -e "$1"
+    else
+        test -f "$1"
+    fi
+}
+
+dir_exists() {
+    if [ "${1:0:7}" = "hdfs://" ]; then
+        hadoop fs -test -d "$1"
+    else
+        test -f "$1"
+    fi
+}
+
+file_mtime() {
+    if [ "${1:0:7}" = "hdfs://" ]; then
+        echo $(( $(hadoop fs -stat %Y "$1") / 1000 ))
+    else
+        stat -c %Y "$1"
+    fi
+}
+
+file_is_newer() {
+    target_mtime=$(file_mtime "$1")
+    shift
+    for f in "$@"; do
+        mtime=$(file_mtime "$f")
+        if [ $mtime -gt $target_mtime ]; then
+            return 1
+        fi
+    done
+    return 0
+}
+
+function __babashka_main() {
+    if [ $# -eq 1 ]; then
+        __babashka_invoke "$1"
+    else
+        __babashka_usage
+    fi
+}
 
 __babashka_load_deps
 
