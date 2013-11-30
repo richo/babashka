@@ -91,7 +91,7 @@ function __babashka_invoke() {
     (( __babashka_current_indent = $__babashka_current_indent - 1 ))
 }
 function __babashka_load_deps() {
-    for path in deps babashka_deps ~/.babashka/deps; do
+    for path in deps/ babashka_deps/ ~/.babashka/deps/ ; do
         if [ -d $path ]; then
             __babashka_load_deps_from_path "$path"
         fi
