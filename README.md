@@ -29,7 +29,11 @@ curl https://raw.github.com/richo/babashka/master/bootstrap.sh | sh /dev/stdin -
 
 ## Organising deps
 
-`babashka` looks for dependencies in the `deps/` folder within the current directory, so firstly make this folder. Then write dependencies in files ending in `.bash` within that folder, for example `deps/server.bash`.
+`babashka` looks for dependencies by searching the `./deps/`, `./babashka-deps/` and `~/.babashka/deps` folders for files ending in `.bash` or `.sh`.
+
+Project-specific deps are conventionally kept in `./deps/` and global deps are conventionally kept in `~/.babashka/deps`.
+
+For example, `~/projects/myapp/deps/deploy.sh` might contain deployment scripts for an app called `myapp`, while `~/.babashka/deps/packages.sh` might contain deps which install packages you commonly need on new systems.
 
 ## Writing deps
 
