@@ -1,4 +1,4 @@
-A [babushka](1) like clone, written in bash.
+A [babushka][1] like clone, written in bash.
 
 ## Installing
 
