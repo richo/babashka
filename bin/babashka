@@ -88,9 +88,14 @@ function __babashka_invoke() {
     (( __babashka_current_indent = __babashka_current_indent + 1 ))
     __babashka_log "-> $1"
     eval "$1"
-    # for some reason that makes the return code 1 even when babashka succeeds,
-    # so force it to succeed with || true (will still return exit 1 if babashka
-    # failed).
+
+    # that makes the return code 1 even if babashka succeeds, because arithmetic
+    # expressions behave differently than success/error of commands:
+    # http://wiki.bash-hackers.org/syntax/arith_expr#truth
+    #
+    # so force it to succeed with || true, we don't want the increment/decrement
+    # to alter the exit code anyway (will still return exit 1 if babashka
+    # failed to converge).
     (( __babashka_current_indent = __babashka_current_indent - 1 )) || true
 }
 function __babashka_load_deps() {
