@@ -85,10 +85,18 @@ function requires_nested() {
 
 # $1 - dep name to invoke
 function __babashka_invoke() {
-    (( __babashka_current_indent = $__babashka_current_indent + 1 ))
+    (( __babashka_current_indent = __babashka_current_indent + 1 ))
     __babashka_log "-> $1"
     eval "$1"
-    (( __babashka_current_indent = $__babashka_current_indent - 1 ))
+
+    # that makes the return code 1 even if babashka succeeds, because arithmetic
+    # expressions behave differently than success/error of commands:
+    # http://wiki.bash-hackers.org/syntax/arith_expr#truth
+    #
+    # so force it to succeed with || true, we don't want the increment/decrement
+    # to alter the exit code anyway (will still return exit 1 if babashka
+    # failed to converge).
+    (( __babashka_current_indent = __babashka_current_indent - 1 )) || true
 }
 function __babashka_load_deps() {
     for path in deps/ babashka_deps/ ~/.babashka/deps/ ; do
@@ -107,7 +115,7 @@ function __babashka_find_deps_from_path() {
 
 # $1 - path to load deps from
 function __babashka_load_deps_from_path() {
-    for path in `__babashka_find_deps_from_path "$1"`; do
+    for path in $(__babashka_find_deps_from_path "$1"); do
         source $path
     done
 }
